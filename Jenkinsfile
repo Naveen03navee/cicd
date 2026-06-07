@@ -24,8 +24,8 @@ pipeline {
 
         stage('Security Scan (Trivy)') {
             steps {
-                // We use exit-code 0 for testing so the pipeline doesn't fail immediately on minor issues
-                sh "trivy image --exit-code 0 --severity HIGH,CRITICAL ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                // Increased timeout to 15 minutes for the initial database download
+                sh "trivy image --timeout 15m --exit-code 0 --severity HIGH,CRITICAL ${DOCKER_IMAGE}:${DOCKER_TAG}"
             }
         }
 
